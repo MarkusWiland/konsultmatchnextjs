@@ -1,7 +1,10 @@
-import React from 'react'
+import Link from "next/link";
+import React from "react";
 
 export default function OmOss() {
   return (
-    <div>OmOss</div>
-  )
+  <div className="content mx-auto">
+    <h1>om oss</h1>
+  </div>
+  );
 }

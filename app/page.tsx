@@ -9,7 +9,7 @@ import {
 export default async function Home() {
   return (
     <main className="flex  flex-col items-center justify-start py-24 ">
-      <div className="min-h-[70vh]">
+      <div className="min-h-[calc(70vh_-_70px)]">
         <div className="pt-16 ">
           <h1 className="HeroHeader">
             Hitta uppdrag eller konsulter hos Konsultmatch.se

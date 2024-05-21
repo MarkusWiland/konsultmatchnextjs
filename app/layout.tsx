@@ -24,7 +24,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
         <Header />
-        <main className="container mt-16">{children}</main>
+        <main className="container 2xl:mt-16 xl:mt-12">{children}</main>
         </ThemeProvider>
       </body>
     </html>
