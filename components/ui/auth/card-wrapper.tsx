@@ -1,20 +1,25 @@
-'use client'
+"use client";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 interface CardWrapperProps {
-children:  React.ReactNode,
-headerLabel: string,
-backButtonLabel: string,
-backButtonHref: string,
-showSoical?: boolean
-
+  children: React.ReactNode;
+  headerLabel: string;
+  backButtonLabel: string;
+  backButtonHref: string;
+  showSoical?: boolean;
 }
-export  function CardWrapper({
-    children,
-    headerLabel,
-    backButtonLabel,
-    backButtonHref,
-    showSoical,
-} : CardWrapperProps) {
+export function CardWrapper({
+  children,
+  headerLabel,
+  backButtonLabel,
+  backButtonHref,
+  showSoical,
+}: CardWrapperProps) {
   return (
-    <div>card-wrapper</div>
-  )
+    <Card>
+        <CardHeader>
+            {headerLabel}
+        </CardHeader>
+      <CardContent>{children}</CardContent>
+    </Card>
+  );
 }
