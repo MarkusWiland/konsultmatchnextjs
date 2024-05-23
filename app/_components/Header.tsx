@@ -5,45 +5,24 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { DialogTrigger } from "@/components/ui/dialog";
 
 import LoginButton from "@/components/ui/auth/login-button";
 import NavigationMenuHeader from "@/components/ui/header/navigation-menu-header";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { auth, signOut } from "@/auth";
-import Image from "next/image";
+import { signOut } from "@/auth";
 import { Button } from "@/components/ui/button";
 import { currentUser } from "@/lib/auth";
 import { ThemeToggle } from "./themeToggle";
 
-import Link from "next/link";
-import DialogMenuList from "@/components/ui/header/dialog-menu-list";
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import DialogComp from "./DialogComp";
+import DialogComp from "./Profile/DialogComp";
 
 export default async function Header() {
   const user = await currentUser();
+
   return (
     <header className="min-h-[70px] flex items-center">
       <div className="container flex justify-between items-center">
@@ -108,7 +87,7 @@ export default async function Header() {
             </>
           ) : (
             <LoginButton>
-              <button>Logga in</button>
+              <Button>Logga in</Button>
             </LoginButton>
           )}
         </div>

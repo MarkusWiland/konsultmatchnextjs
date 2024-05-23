@@ -19,16 +19,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (token.role && session.user) {
         session.user.role = token.role as Role;
       }
-      return session;
+
+      return session
     },
     async jwt({ token }) {
       if (!token.sub) {
         return token;
       }
       const existingUser = await getUserById(token.sub);
-
-      token.role = existingUser?.role;
-      return token;
+    
+      return {
+        ...token,
+        role: existingUser?.role
+      };
     },
   },
   adapter: PrismaAdapter(db),

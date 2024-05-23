@@ -1,4 +1,4 @@
-import { DataTableDemo } from '@/app/_components/DataTable';
+import { DataTableDemo, DataTableKonsult } from '@/app/_components/DataTable';
 import React from 'react'
 const users = [
     {
@@ -92,6 +92,8 @@ const users = [
   ];
 export default function Konsulter() {
   return (
-    <div>Konsulter</div>
+    <div>
+        <DataTableKonsult />
+    </div>
   )
 }
