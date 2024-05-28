@@ -44,47 +44,59 @@ import {
 const data: Payment[] = [
   {
     id: "m5gr84i9",
+    name: "Ken",
     amount: 316,
     status: "success",
     email: "ken99@yahoo.com",
     skills: ["Machine Learning", "AI"],
+    experience: 5,
   },
   {
     id: "3u1reuv4",
+    name: "Abe",
     amount: 242,
     status: "success",
     email: "Abe45@gmail.com",
     skills: ["Machine Learning", "AI"],
+    experience: 3,
   },
   {
     id: "derv1ws0",
+    name: "Monserrat",
     amount: 837,
     status: "processing",
     email: "Monserrat44@gmail.com",
     skills: ["Machine Learning", "AI"],
+    experience: 7,
   },
   {
     id: "5kma53ae",
+    name: "Silas",
     amount: 874,
     status: "success",
     email: "Silas22@gmail.com",
     skills: ["Machine Learning", "AI"],
+    experience: 2,
   },
   {
     id: "bhqecj4p",
+    name: "Carmella",
     amount: 721,
     status: "failed",
     email: "carmella@hotmail.com",
     skills: ["Machine Learning", "AI"],
+    experience: 4,
   },
 ]
 
 export type Payment = {
   id: string
+  name: string
   amount: number
   status: "pending" | "processing" | "success" | "failed"
-  email: string,
-  skills: string[],
+  email: string
+  skills: string[]
+  experience: number
 }
 
 export const columns: ColumnDef<Payment>[] = [
@@ -109,6 +121,21 @@ export const columns: ColumnDef<Payment>[] = [
     ),
     enableSorting: false,
     enableHiding: false,
+  },
+  {
+    accessorKey: "name",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Name
+          <CaretSortIcon className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    cell: ({ row }) => <div className="capitalize">{row.getValue("name")}</div>,
   },
   {
     accessorKey: "status",
@@ -145,9 +172,27 @@ export const columns: ColumnDef<Payment>[] = [
         </Button>
       )
     },
-    cell: ({ row }: { row: any}) => (
-        <div className="lowercase">{row.getValue("skills").join(", ")}</div>
-      ),
+    cell: ({ row }) => (
+      <div className="lowercase">{row.getValue("skills").join(", ")}</div>
+    ),
+  },
+  {
+    accessorKey: "experience",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Experience
+          <CaretSortIcon className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    cell: ({ row }) => (
+      <div className="">{row.getValue("experience")} years</div>
+    ),
+ 
   },
   {
     accessorKey: "amount",
@@ -155,7 +200,6 @@ export const columns: ColumnDef<Payment>[] = [
     cell: ({ row }) => {
       const amount = parseFloat(row.getValue("amount"))
 
-      // Format the amount as a dollar amount
       const formatted = new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD",
