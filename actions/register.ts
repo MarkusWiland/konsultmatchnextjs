@@ -6,13 +6,13 @@ import { db } from "@/lib/prisma";
 import { getUserByEmail } from "@/data/user";
 import { Role } from "@prisma/client";
 type UserData = {
-  email: string,
-  name: string,
-  role: "CONSULT" | "BUSINESS" | "ADMIN",
-  password: string,
-  businessName?: string,
-  businessAddress?: string,
-  businessPhone?: string,
+  email: string;
+  name: string;
+  role: "CONSULT" | "BUSINESS" | "ADMIN";
+  password: string;
+  businessName?: string;
+  businessAddress?: string;
+  businessPhone?: string;
 };
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
   const validatedFields = RegisterSchema.safeParse(values);
@@ -21,7 +21,15 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     return { error: "Invalid Fields" };
   }
 
-  const { email, name, password, role, businessName, businessAddress, businessPhone } = validatedFields.data;
+  const {
+    email,
+    name,
+    password,
+    role,
+    businessName,
+    businessAddress,
+    businessPhone,
+  } = validatedFields.data;
   const hashedPassword = await bcryptjs.hash(password, 10);
 
   const existingUser = await getUserByEmail(email);
@@ -30,14 +38,14 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
   }
 
   // Prepare user data for insertion
-  const userData: UserData    =  {
+  const userData: UserData = {
     email,
     name,
     role,
     password: hashedPassword,
   };
 
-  if (role === "BUSINESS" as Role) {
+  if (role === ("BUSINESS" as Role)) {
     // Add business-specific fields if role is BUSINESS
     userData.businessName = businessName;
     userData.businessAddress = businessAddress;
