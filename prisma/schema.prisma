@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
 
@@ -15,33 +15,33 @@ enum Role {
 }
 
 model User {
-  id            String         @id @default(cuid())
-  name          String?
-  email         String?        @unique
-  emailVerified DateTime?      @map("email_verified")
-  image         String?
-  role          Role           @default(CONSULT)
-  password      String?
-  accounts      Account[]
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  cv            CV?            // En användare kan ha ett CV
-  skills        UserSkill[]    // Färdigheter som användaren har
-  assignments   Assignment[]   // Uppdrag som användaren har skapat
+  id              String           @id @default(cuid())
+  name            String?
+  email           String?          @unique
+  emailVerified   DateTime?        @map("email_verified")
+  image           String?
+  role            Role             @default(CONSULT)
+  password        String?
+  accounts        Account[]
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  cv              CV?              // En användare kan ha ett CV
+  skills          UserSkill[]      // Färdigheter som användaren har
+  jobApplications JobApplication[] // Relation to JobApplication
 }
 
 model Account {
-  id                String    @id @default(cuid())
+  id                String  @id @default(cuid())
   userId            String
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String?   @db.Text
-  access_token      String?   @db.Text
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String?   @db.Text
+  id_token          String? @db.Text
   session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -50,58 +50,43 @@ model Account {
 }
 
 model CV {
-  id         Int      @id @default(autoincrement())
-  url        String
-  user       User     @relation(fields: [userId], references: [id])
-  userId     String   @unique
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id        Int      @id @default(autoincrement())
+  url       String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
-model Assignment {
-  id                 Int           @id @default(autoincrement())
-  title              String
-  description        String
-  startDate          DateTime?
-  endDate            DateTime?
-  duration           String?
-  priority           String        @default("medium")
-  status             String        @default("planned")
-  assignee           String?       // Användare som är tilldelad uppdraget
-  tags               String[]
-  budget             Float         @default(0)
-  location           String?
-  attachments        String[]      // Lista med filer som är bifogade till uppdraget
-  milestones         String[]      // Lista med milstolpar för uppdraget
-  dependencies       String[]      // Lista med beroenden för uppdraget
-  resources          String[]      // Lista med resurser som krävs för uppdraget
-  client             String?       // Klient för uppdraget
-  objectives         String[]      // Lista med mål för uppdraget
-  risks              String[]      // Lista med risker för uppdraget
-  completionCriteria String?       // Kriterier för slutförande av uppdraget
-  notes              String?       // Övriga anteckningar
+model JobApplication {
+  id           String   @id @default(uuid())
+  title        String
+  description  String
+  startDate    DateTime
+  endDate      DateTime
+  salary       Decimal  @default(0.00) @db.Decimal(10, 2)
+  requirements String
+  userId       String   // Foreign key to User model
 
-  createdAt          DateTime      @default(now())
-  updatedAt          DateTime      @updatedAt
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  // Lägg till motsatt relation för User
-  user               User          @relation(fields: [userId], references: [id])
-  userId             String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
-
 
 model Skill {
-  id         Int          @id @default(autoincrement())
-  name       String       @unique
-  users      UserSkill[]
+  id    Int         @id @default(autoincrement())
+  name  String      @unique
+  users UserSkill[]
 }
 
 model UserSkill {
   id      Int    @id @default(autoincrement())
   userId  String
   skillId Int
-  user    User   @relation(fields: [userId], references: [id])
-  skill   Skill  @relation(fields: [skillId], references: [id])
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  skill   Skill  @relation(fields: [skillId], references: [id], onDelete: Cascade)
 
   @@unique([userId, skillId])
 }
