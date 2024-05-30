@@ -11,57 +11,31 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
+import { db } from "@/lib/prisma";
 
 interface Uppdrag {
-  title: string;
-  description: string;
-  id: number;
-  kategori: string;
+  title: string,
+  id: string,
+  description: string,
+  startDate: string,
+  endDate: string,
+  salary: any,
+  requirements: string,
 }
 
-const uppdrag: Uppdrag[] = [
-  {
-    title: "Detta är itkonsult",
-    description: "Detta är en beskrivning av ett uppdrag",
-    id: 1,
-    kategori: "IT",
-  },
-  {
-    title: "Detta är Trädgård",
-    description: "Detta är en beskrivning av ett uppdrag",
-    id: 2,
-    kategori: "Trädgård",
-  },
-  {
-    title: "Detta är itkonsult 47",
-    description: "Detta är en beskrivning av ett uppdrag",
-    id: 3,
-    kategori: "IT",
-  },
-  {
-    title: "Detta är Ekonomi",
-    description: "Detta är en beskrivning av ett uppdrag",
-    id: 4,
-    kategori: "Ekonomi",
-  },
-  {
-    title: "Detta är itkonsult",
-    description: "Detta är en beskrivning av ett uppdrag",
-    id: 5,
-    kategori: "IT",
-  },
-];
 
 const ITEMS_PER_PAGE_DEFAULT = 4;
 const ITEMS_PER_PAGE_CATEGORY = 2;
 
 export default function Uppdrag() {
+
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [uppdrag, setUppdrag] = useState<Uppdrag[]>([]);
 
   // Filtrerar uppdrag baserat på vald kategori
   const filteredUppdrag = selectedCategory
-    ? uppdrag.filter((item) => item.kategori === selectedCategory)
+    ? uppdrag.filter((item) => item.requirements === selectedCategory)
     : uppdrag;
 
   // Beräknar antalet sidor baserat på filtrerade uppdrag och antal uppdrag per sida
@@ -95,7 +69,7 @@ export default function Uppdrag() {
             <CardContent>
               <CardDescription>
                 <p>{item.description}</p>
-                <p>{item.kategori}</p>
+                <p>{item.requirements}</p>
               </CardDescription>
             </CardContent>
             <CardFooter>
