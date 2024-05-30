@@ -1,9 +1,7 @@
-// createJobApplication.ts
 "use server";
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/prisma";
 import { JobApplicationSchema } from "@/schema";
-import { start } from "repl";
 import * as z from "zod";
 
 export const createJobApplication = async (
@@ -17,7 +15,7 @@ export const createJobApplication = async (
   try {
     const validatedFields = JobApplicationSchema.parse(values);
         
-    const { title, description, startDate, endDate, salary, requirements } = validatedFields;
+    const { title, description, startDate, endDate, salary, category, requirements } = validatedFields;
     console.log("validatedFields", validatedFields)
     const dbUser = await db.user.findUnique({ where: { id: user.id } });
     if (!dbUser) {
@@ -30,6 +28,7 @@ export const createJobApplication = async (
         description,
         startDate,
         endDate,
+        category,
         salary,
         requirements,
         user: {

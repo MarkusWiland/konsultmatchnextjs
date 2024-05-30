@@ -18,26 +18,26 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-const frameworks = [
-  {
-    value: "",
-    label: "Alla",
-  }, 
-  {
-    value: "IT",
-    label: "IT",
-  },
-  {
-    value: "Ekonomi",
-    label: "Ekonomi",
-  },
-  {
-    value: "Trädgård",
-    label: "Trädgård",
-  },
-];
 
-export function ComboboxDemo({ onSelectCategory } : { onSelectCategory: any}) {
+
+export function ComboboxDemo({
+  onSelectCategory,
+  jobApplications,
+}: {
+  onSelectCategory: any;
+  jobApplications: any;
+}) {
+  const categories = [
+    { value: "", label: "Alla" },
+    ...jobApplications
+      .map((item: { category: string }) => item.category)
+  
+      .map((category: string) => ({
+        value: category,
+        label: category,
+      }))
+  ];
+  console.log("categories", categories)
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
 
@@ -58,18 +58,18 @@ export function ComboboxDemo({ onSelectCategory } : { onSelectCategory: any}) {
           className="w-[200px] justify-between"
         >
           {value
-            ? frameworks.find((framework) => framework.value === value)?.label
-            : "Select framework..."}
+            ? categories?.find((framework) => framework.value === value)?.label
+            : "Välj kategori..."}
           <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
         <Command>
-          <CommandInput placeholder="Search framework..." className="h-9" />
-          <CommandEmpty>No framework found.</CommandEmpty>
+          <CommandInput placeholder="Välj kategori..." className="h-9" />
+          <CommandEmpty>Ingen kategori hittades.</CommandEmpty>
           <CommandGroup>
             <CommandList>
-              {frameworks.map((framework) => (
+              {categories?.map((framework) => (
                 <CommandItem
                   key={framework.value}
                   value={framework.value}

@@ -63,8 +63,9 @@ model JobApplication {
   title        String
   description  String
   startDate    String
+  category     String
   endDate      String
-  salary       Decimal  @default(0.00) @db.Decimal(10, 2)
+  salary       String?
   requirements String
   userId       String   // Foreign key to User model
 

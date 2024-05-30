@@ -30,6 +30,7 @@ export const RegisterSchema = z.object({
 export const JobApplicationSchema = z.object({
   title: z.string(),
   description: z.string(),
+  category: z.string(),
   startDate: z.string(), // Konverterad från string till date
   endDate: z.string(), // Konverterad från string till date
   salary: z.string(), // Lagt till fält för salary
