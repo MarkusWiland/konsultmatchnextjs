@@ -31,8 +31,8 @@ export const JobApplicationSchema = z.object({
   title: z.string(),
   description: z.string(),
   category: z.string(),
-  startDate: z.string(), // Konverterad från string till date
-  endDate: z.string(), // Konverterad från string till date
+  startDate: z.date(), // Konverterad från string till date
+  endDate: z.date(), // Konverterad från string till date
   salary: z.string(), // Lagt till fält för salary
   requirements: z.string(), // Lagt till fält för requirements
  

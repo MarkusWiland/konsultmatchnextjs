@@ -3,6 +3,7 @@ import React, { useState, useTransition } from "react";
 import { useForm, useFormContext } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { sv } from "date-fns/locale";
 import {
   FormControl,
   FormField,
@@ -33,8 +34,10 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
+import { CalendarIcon, CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/utils";
+import { format } from "date-fns";
+import { Calendar } from "@/components/ui/calendar";
 
 const categories = [
   { value: "it", label: "IT" },
@@ -63,8 +66,8 @@ export default function JobApplication() {
       title: "",
       description: "",
       category: "",
-      startDate: "", // Använder toISOString() för att få dagens datum i ISO-8601-format
-      endDate: "", // Använder toISOString() för att få dagens datum i ISO-8601-format
+      startDate: new Date(), // Skapa Date-objekt från sträng
+      endDate: new Date(), // Skapa Date-objekt från sträng
       salary: "", // Standardlön inställd på 0.00
       requirements: "",
     },
@@ -77,6 +80,7 @@ export default function JobApplication() {
     setError("");
     setSuccess("");
     console.log("values", values);
+
     startTransition(() => {
       createJobApplication(values).then((data) => {
         setError(data?.error);
@@ -122,16 +126,47 @@ export default function JobApplication() {
           control={form.control}
           name="startDate"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>startDate</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  disabled={isPending}
-                  placeholder="Job Requirements"
-                  type="date"
-                />
-              </FormControl>
+            <FormItem className="flex flex-col">
+              <FormLabel>Start Date</FormLabel>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <FormControl>
+                    <Button
+                      variant={"outline"}
+                      className={cn(
+                        "w-[240px] pl-3 text-left font-normal",
+                        !field.value && "text-muted-foreground"
+                      )}
+                    >
+                      {field.value ? (
+                        format(new Date(field.value), "PPP", { locale: sv })
+                      ) : (
+                        <span>Välj ett datum</span>
+                      )}
+                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                    </Button>
+                  </FormControl>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    mode="single"
+                    locale={sv}
+                    selected={field.value}
+                    onSelect={(date) => {
+                      field.onChange(date);
+                    }}
+                    disabled={(date) =>
+                      date >
+                      new Date(
+                        date.getFullYear() + 3,
+                        date.getMonth(),
+                        date.getDate()
+                      )
+                    }
+                    initialFocus
+                  />
+                </PopoverContent>
+              </Popover>
               <FormMessage />
             </FormItem>
           )}
@@ -140,16 +175,47 @@ export default function JobApplication() {
           control={form.control}
           name="endDate"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>endDate</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  disabled={isPending}
-                  placeholder="Job Requirements"
-                  type="date"
-                />
-              </FormControl>
+            <FormItem className="flex flex-col">
+              <FormLabel>End Date</FormLabel>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <FormControl>
+                    <Button
+                      variant={"outline"}
+                      className={cn(
+                        "w-[240px] pl-3 text-left font-normal",
+                        !field.value && "text-muted-foreground"
+                      )}
+                    >
+                      {field.value ? (
+                        format(new Date(field.value), "PPP", { locale: sv })
+                      ) : (
+                        <span>Välj ett datum</span>
+                      )}
+                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                    </Button>
+                  </FormControl>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    mode="single"
+                    locale={sv}
+                    selected={field.value}
+                    onSelect={(date) => {
+                      field.onChange(date);
+                    }}
+                    disabled={(date) =>
+                      date >
+                      new Date(
+                        date.getFullYear() + 3,
+                        date.getMonth(),
+                        date.getDate()
+                      )
+                    }
+                    initialFocus
+                  />
+                </PopoverContent>
+              </Popover>
               <FormMessage />
             </FormItem>
           )}
@@ -195,30 +261,30 @@ export default function JobApplication() {
                   <CommandInput placeholder="Sök kategori..." className="h-9" />
                   <CommandEmpty>Ingen kategori funnen.</CommandEmpty>
                   <CommandGroup>
-                  <CommandList>
-                    {categories.map((category) => (
-                      <CommandItem
-                        key={category.value}
-                        value={category.value}
-                        onSelect={(currentValue) => {
-                          field.onChange(
-                            currentValue === value ? "" : currentValue
-                          );
-                          setOpen(false);
-                        }}
-                      >
-                        {category.label}
-                        <CheckIcon
-                          className={cn(
-                            "ml-auto h-4 w-4",
-                            value === category.value
-                              ? "opacity-100"
-                              : "opacity-0"
-                          )}
-                        />
-                      </CommandItem>
-                    ))}
-                     </CommandList>
+                    <CommandList>
+                      {categories.map((category) => (
+                        <CommandItem
+                          key={category.value}
+                          value={category.value}
+                          onSelect={(currentValue) => {
+                            field.onChange(
+                              currentValue === value ? "" : currentValue
+                            );
+                            setOpen(false);
+                          }}
+                        >
+                          {category.label}
+                          <CheckIcon
+                            className={cn(
+                              "ml-auto h-4 w-4",
+                              value === category.value
+                                ? "opacity-100"
+                                : "opacity-0"
+                            )}
+                          />
+                        </CommandItem>
+                      ))}
+                    </CommandList>
                   </CommandGroup>
                 </Command>
               </PopoverContent>

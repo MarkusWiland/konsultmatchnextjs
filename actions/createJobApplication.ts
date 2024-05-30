@@ -14,20 +14,28 @@ export const createJobApplication = async (
 
   try {
     const validatedFields = JobApplicationSchema.parse(values);
-        
-    const { title, description, startDate, endDate, salary, category, requirements } = validatedFields;
-    console.log("validatedFields", validatedFields)
+
+    const {
+      title,
+      description,
+      startDate,
+      endDate,
+      salary,
+      category,
+      requirements,
+    } = validatedFields;
+    console.log("validatedFields", validatedFields);
     const dbUser = await db.user.findUnique({ where: { id: user.id } });
     if (!dbUser) {
       throw new Error("User not found");
     }
-    
+
     const jobApplication = await db.jobApplication.create({
       data: {
         title,
         description,
-        startDate,
-        endDate,
+        startDate: startDate.toISOString(), // Konvertera till sträng
+        endDate: endDate.toISOString(), // Konvertera till sträng
         category,
         salary,
         requirements,
@@ -39,7 +47,10 @@ export const createJobApplication = async (
       },
     });
 
-    return { success: "Job application created successfully", data: jobApplication };
+    return {
+      success: "Job application created successfully",
+      data: jobApplication,
+    };
   } catch (error) {
     console.error("Error creating job application:", error);
     return {

@@ -62,9 +62,9 @@ model JobApplication {
   id           String   @id @default(uuid())
   title        String
   description  String
-  startDate    String
+  startDate    DateTime
   category     String
-  endDate      String
+  endDate      DateTime
   salary       String?
   requirements String
   userId       String   // Foreign key to User model
