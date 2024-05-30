@@ -16,12 +16,13 @@ interface Uppdrag {
   title: string;
   id: string;
   description: string;
-  startDate: string;
-  endDate: string;
+  startDate: Date;
+  endDate: Date;
   category: string;
   salary: string | null;
   requirements: string;
 }
+
 
 const ITEMS_PER_PAGE_DEFAULT = 4;
 const ITEMS_PER_PAGE_CATEGORY = 2;
@@ -63,8 +64,11 @@ export default function JobApplicationComp({
 
   return (
     <div>
-      <ComboboxDemo onSelectCategory={setSelectedCategory} jobApplications={jobApplications}/>
-      <div className="grid grid-cols-5 gap-4 mt-10">
+      <ComboboxDemo
+        onSelectCategory={setSelectedCategory}
+        jobApplications={jobApplications}
+      />
+      <div className="grid grid-cols-5 gap-4 mt-10 mb-6">
         {paginatedUppdrag.map((item) => (
           <Link href={`/uppdrag/${item.id}`}>
             <Card key={item.id} className="hover:scale-105 cursor-pointer">
@@ -73,9 +77,10 @@ export default function JobApplicationComp({
               </CardHeader>
               <CardContent>
                 <CardDescription>
-                  <p>{item.description}</p>
-                  <p>{item.category}</p>
-                  <p>{item.requirements}</p>
+                  <p className="line-clamp-1">{item.description}</p>
+                  <p>{item?.category}</p>
+                  <p>{new Date(item?.startDate).toLocaleDateString("se-SV")}</p>
+                  <p>{new Date(item?.endDate).toLocaleDateString("se-SV")}</p>
                 </CardDescription>
               </CardContent>
               <CardFooter></CardFooter>

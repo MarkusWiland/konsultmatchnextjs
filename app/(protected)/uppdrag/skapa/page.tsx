@@ -92,162 +92,120 @@ export default function JobApplication() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <FormField
-          control={form.control}
-          name="title"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Title</FormLabel>
-              <FormControl>
-                <Textarea {...field} disabled={isPending} placeholder="Title" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="description"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>description</FormLabel>
-              <FormControl>
-                <Textarea
-                  {...field}
-                  disabled={isPending}
-                  placeholder="Job Requirements"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="startDate"
-          render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel>Start Date</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant={"outline"}
-                      className={cn(
-                        "w-[240px] pl-3 text-left font-normal",
-                        !field.value && "text-muted-foreground"
-                      )}
-                    >
-                      {field.value ? (
-                        format(new Date(field.value), "PPP", { locale: sv })
-                      ) : (
-                        <span>Välj ett datum</span>
-                      )}
-                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    locale={sv}
-                    selected={field.value}
-                    onSelect={(date) => {
-                      field.onChange(date);
-                    }}
-                    disabled={(date) =>
-                      date >
-                      new Date(
-                        date.getFullYear() + 3,
-                        date.getMonth(),
-                        date.getDate()
-                      )
-                    }
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="endDate"
-          render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel>End Date</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant={"outline"}
-                      className={cn(
-                        "w-[240px] pl-3 text-left font-normal",
-                        !field.value && "text-muted-foreground"
-                      )}
-                    >
-                      {field.value ? (
-                        format(new Date(field.value), "PPP", { locale: sv })
-                      ) : (
-                        <span>Välj ett datum</span>
-                      )}
-                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    locale={sv}
-                    selected={field.value}
-                    onSelect={(date) => {
-                      field.onChange(date);
-                    }}
-                    disabled={(date) =>
-                      date >
-                      new Date(
-                        date.getFullYear() + 3,
-                        date.getMonth(),
-                        date.getDate()
-                      )
-                    }
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="salary"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Salary</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  disabled={isPending}
-                  placeholder="Job Requirements"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
+       
+        <div className="flex gap-4 items-center my-4">
+          <FormField
+            control={form.control}
+            name="startDate"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel>Start datum</FormLabel>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant={"outline"}
+                        className={cn(
+                          "w-[240px] pl-3 text-left font-normal",
+                          !field.value && "text-muted-foreground"
+                        )}
+                      >
+                        {field.value ? (
+                          format(new Date(field.value), "PPP", { locale: sv })
+                        ) : (
+                          <span>Välj ett datum</span>
+                        )}
+                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      locale={sv}
+                      selected={field.value}
+                      onSelect={(date) => {
+                        field.onChange(date);
+                      }}
+                      disabled={(date) =>
+                        date >
+                        new Date(
+                          date.getFullYear() + 3,
+                          date.getMonth(),
+                          date.getDate()
+                        )
+                      }
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="endDate"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel>Slut datum</FormLabel>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant={"outline"}
+                        className={cn(
+                          "w-[240px] pl-3 text-left font-normal",
+                          !field.value && "text-muted-foreground"
+                        )}
+                      >
+                        {field.value ? (
+                          format(new Date(field.value), "PPP", { locale: sv })
+                        ) : (
+                          <span>Välj ett datum</span>
+                        )}
+                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      locale={sv}
+                      selected={field.value}
+                      onSelect={(date) => {
+                        field.onChange(date);
+                      }}
+                      disabled={(date) =>
+                        date >
+                        new Date(
+                          date.getFullYear() + 3,
+                          date.getMonth(),
+                          date.getDate()
+                        )
+                      }
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+           <FormField
           control={control}
           name="category"
+         
           render={({ field }) => (
-            <Popover open={open} onOpenChange={setOpen}>
-              <PopoverTrigger asChild>
+            <FormItem className="flex flex-col">
+            <FormLabel>Kategori</FormLabel>
+            <Popover open={open} onOpenChange={setOpen} >
+              <PopoverTrigger asChild >
                 <Button
                   variant="outline"
                   role="combobox"
                   aria-expanded={open}
-                  className="w-[200px] justify-between"
+                  className="w-[200px] my-4 justify-between"
                 >
                   {value
                     ? categories.find((category) => category.value === value)
@@ -256,7 +214,7 @@ export default function JobApplication() {
                   <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-[200px] p-0">
+              <PopoverContent className="w-[200px]  p-0">
                 <Command>
                   <CommandInput placeholder="Sök kategori..." className="h-9" />
                   <CommandEmpty>Ingen kategori funnen.</CommandEmpty>
@@ -289,6 +247,40 @@ export default function JobApplication() {
                 </Command>
               </PopoverContent>
             </Popover>
+            </FormItem>
+          )}
+        />
+        </div>
+       
+       
+         <FormField
+          control={form.control}
+          name="title"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Titel på uppdraget</FormLabel>
+              <FormControl>
+                <Textarea {...field} disabled={isPending} placeholder="Skriv din titel på uppdraget..." />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="description"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Omfattning</FormLabel>
+              <FormControl>
+                <Textarea
+                  {...field}
+                  disabled={isPending}
+                  placeholder="Skriv text om uppdraget..."
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
           )}
         />
         <FormField
@@ -296,12 +288,30 @@ export default function JobApplication() {
           name="requirements"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>requirements</FormLabel>
+              <FormLabel>Färdigheter</FormLabel>
               <FormControl>
                 <Textarea
                   {...field}
                   disabled={isPending}
-                  placeholder="Job Requirements"
+                  placeholder="Skriv vilka färdigheter som är viktiga..."
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+         <FormField
+          control={form.control}
+          name="salary"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Lön</FormLabel>
+              <FormControl>
+                <Input
+                  {...field}
+                  disabled={isPending}
+                  required={false}
+                  placeholder="Skriv in årsinkomsten..."
                 />
               </FormControl>
               <FormMessage />
@@ -310,7 +320,9 @@ export default function JobApplication() {
         />
         <FormError message={error} />
         <FormSuccess message={success} />
-        <Button type="submit">Submit</Button>
+        <Button type="submit" className="w-full mt-4">
+          Lägg till uppdrag
+        </Button>
       </form>
     </Form>
   );
