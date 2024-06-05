@@ -22,8 +22,9 @@ async function getJobApplication() {
 export default async function Home() {
   const jobApplications = await getJobApplication();
   return (
-    <main className="flex  flex-col items-center justify-start py-24 ">
-      <div className="min-h-[calc(70vh_-_70px)]">
+    <main className="flex   flex-col items-center justify-start py-24 ">
+      <div className="absolute top-0 left-0 h-full w-screen foo -z-10"/>
+      <div className="min-h-[calc(70vh_-_70px)] ">
         <div className="pt-4">
           <h1 className="HeroHeader text-center">Konsultmatch.se</h1>
           <div className="HeroContent">

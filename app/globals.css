@@ -61,7 +61,10 @@
     @apply bg-background text-foreground;
   }
 }
-
+.foo {
+  background: rgb(0, 0, 0);
+  background: linear-gradient(155deg, rgba(12,10,9,1) 0%, rgba(12,10,9,1) 32%, rgba(24,134,0,0.3211485277704832) 100%);
+}
 .HeroHeader {
   @apply font-extrabold text-[max(48px,min(5vw,56px))] leading-none -tracking-wider relative p-6;
   background: linear-gradient(180deg, #4a90e2, #7f9eb2);
