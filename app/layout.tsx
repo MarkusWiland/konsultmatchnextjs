@@ -5,6 +5,7 @@ import Header from "./_components/Header";
 import { ThemeProvider } from "@/components/ui/theme/themeProvider";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
+import Footer from "./_components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,7 +32,8 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <Header />
-          <main className="container 2xl:mt-16 xl:mt-12">{children}</main>
+          <main className="container min-h-[calc(100vh_-_134px)] 2xl:mt-16 xl:mt-12">{children}</main>
+          <Footer />
         </ThemeProvider>
       </body>
     </html>

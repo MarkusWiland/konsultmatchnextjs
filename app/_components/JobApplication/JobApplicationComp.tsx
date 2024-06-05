@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { ComboboxDemo } from "@/app/_components/ComboBoxDemo";
 import { PaginationComp } from "@/app/_components/Pagination";
 import {
@@ -11,7 +11,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
-
+import { Skeleton } from "@/components/ui/skeleton";
+import CardComp from "../CardComp";
 interface Uppdrag {
   title: string;
   id: string;
@@ -77,28 +78,12 @@ export default function JobApplicationComp({
         {paginatedUppdrag.map((item) => {
           const slug = createSlug(item.title);
           return (
-            <Link href={`/uppdrag/${item.id}`} key={`${item.id}`}>
-              <Card className="hover:scale-105 cursor-pointer">
-                <CardHeader>
-                  <CardTitle>{item.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription>
-                    <div className="line-clamp-1">{item.description}</div>
-                    <div>{item?.category}</div>
-                    <div>
-                      {item.startDate &&
-                        new Date(item.startDate).toLocaleDateString("sv-SE")}
-                    </div>
-                    <div>
-                      {item.endDate &&
-                        new Date(item.endDate).toLocaleDateString("sv-SE")}
-                    </div>
-                  </CardDescription>
-                </CardContent>
-                <CardFooter></CardFooter>
-              </Card>
-            </Link>
+          
+              <Link href={`/uppdrag/${item.id}`} key={`${item.id}`}>
+               
+                <CardComp jobApplication={item} />
+              </Link>
+         
           );
         })}
       </div>

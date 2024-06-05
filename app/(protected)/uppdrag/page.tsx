@@ -13,6 +13,6 @@ async function getJobApplication() {
 
 export default async function Uppdrag() {
   const getAllJobApplications = await getJobApplication();
-  console.log("getAllJobApplications", getAllJobApplications);
+
   return <JobApplicationComp jobApplications={getAllJobApplications} />;
 }

@@ -64,11 +64,10 @@
 
 .HeroHeader {
   @apply font-extrabold text-[max(48px,min(5vw,56px))] leading-none -tracking-wider relative p-6;
-  background: linear-gradient(180deg,#fff,#adadad);
+  background: linear-gradient(180deg, #4a90e2, #7f9eb2);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
 .HeroContent {
   @apply text-[color:var(--accents-5)] text-[max(12px,min(2vw,16px))] leading-[1.8] tracking-[var(--letter-spacing-1)] font-normal relative z-[1] w-[calc(100%_-_var(--line-width)_*_2)] left-[var(--line-width)] px-8 py-10;
   background: var(--geist-background);
