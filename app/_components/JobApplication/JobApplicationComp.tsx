@@ -23,7 +23,6 @@ interface Uppdrag {
   requirements: string;
 }
 
-
 const ITEMS_PER_PAGE_DEFAULT = 4;
 const ITEMS_PER_PAGE_CATEGORY = 2;
 
@@ -61,6 +60,12 @@ export default function JobApplicationComp({
       ? ITEMS_PER_PAGE_CATEGORY
       : ITEMS_PER_PAGE_DEFAULT;
   }
+  function createSlug(title: string) {
+    return title
+      .toLowerCase()
+      .replace(/ /g, "-") // ersätter mellanslag med bindestreck
+      .replace(/[^\w-]+/g, ""); // tar bort alla icke-alfanumeriska tecken förutom bindestreck och understreck
+  }
 
   return (
     <div>
@@ -69,24 +74,33 @@ export default function JobApplicationComp({
         jobApplications={jobApplications}
       />
       <div className="grid grid-cols-5 gap-4 mt-10 mb-6">
-        {paginatedUppdrag.map((item) => (
-          <Link href={`/uppdrag/${item.id}`}>
-            <Card key={item.id} className="hover:scale-105 cursor-pointer">
-              <CardHeader>
-                <CardTitle>{item.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription>
-                  <p className="line-clamp-1">{item.description}</p>
-                  <p>{item?.category}</p>
-                  <p>{new Date(item?.startDate).toLocaleDateString("se-SV")}</p>
-                  <p>{new Date(item?.endDate).toLocaleDateString("se-SV")}</p>
-                </CardDescription>
-              </CardContent>
-              <CardFooter></CardFooter>
-            </Card>
-          </Link>
-        ))}
+        {paginatedUppdrag.map((item) => {
+          const slug = createSlug(item.title);
+          return (
+            <Link href={`/uppdrag/${item.id}`} as={`/uppdrag/${slug}`} key={`${item.id}`}>
+              <Card className="hover:scale-105 cursor-pointer">
+                <CardHeader>
+                  <CardTitle>{item.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription>
+                    <div className="line-clamp-1">{item.description}</div>
+                    <div>{item?.category}</div>
+                    <div>
+                      {item.startDate &&
+                        new Date(item.startDate).toLocaleDateString("sv-SE")}
+                    </div>
+                    <div>
+                      {item.endDate &&
+                        new Date(item.endDate).toLocaleDateString("sv-SE")}
+                    </div>
+                  </CardDescription>
+                </CardContent>
+                <CardFooter></CardFooter>
+              </Card>
+            </Link>
+          );
+        })}
       </div>
       <PaginationComp
         currentPage={currentPage}

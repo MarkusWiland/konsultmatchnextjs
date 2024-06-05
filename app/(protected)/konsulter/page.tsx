@@ -1,4 +1,4 @@
-import { DataTableDemo, DataTableKonsult } from '@/app/_components/DataTable';
+import {  DataTableKonsult } from '@/app/_components/DataTable';
 import React from 'react'
 const users = [
     {

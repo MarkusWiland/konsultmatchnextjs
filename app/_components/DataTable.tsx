@@ -173,7 +173,7 @@ export const columns: ColumnDef<Payment>[] = [
       )
     },
     cell: ({ row }) => (
-      <div className="lowercase">{row.getValue("skills").join(", ")}</div>
+      <div className="lowercase">{row?.getValue("skills")}</div>
     ),
   },
   {
