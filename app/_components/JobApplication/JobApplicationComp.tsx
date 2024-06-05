@@ -77,7 +77,7 @@ export default function JobApplicationComp({
         {paginatedUppdrag.map((item) => {
           const slug = createSlug(item.title);
           return (
-            <Link href={`/uppdrag/${item.id}`} as={`/uppdrag/${slug}`} key={`${item.id}`}>
+            <Link href={`/uppdrag/${item.id}`} key={`${item.id}`}>
               <Card className="hover:scale-105 cursor-pointer">
                 <CardHeader>
                   <CardTitle>{item.title}</CardTitle>
