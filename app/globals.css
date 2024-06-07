@@ -8,6 +8,7 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
+    --linearBackground: 255,255,255;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
@@ -33,6 +34,7 @@
     --background: 20 14.3% 4.1%;
     --foreground: 0 0% 95%;
     --card: 24 9.8% 10%;
+    --linearBackground: 12.10,9;
     --card-foreground: 0 0% 95%;
     --popover: 0 0% 9%;
     --popover-foreground: 0 0% 95%;
@@ -63,7 +65,7 @@
 }
 .foo {
   background: rgb(0, 0, 0);
-  background: linear-gradient(155deg, rgba(12,10,9,1) 0%, rgba(12,10,9,1) 32%, rgba(24,134,0,0.3211485277704832) 100%);
+  background: linear-gradient(155deg, rgba(var(--linearBackground),1) 0%, rgba(var(--linearBackground),1) 32%, rgba(24,134,0,0.3211485277704832) 100%);
 }
 .HeroHeader {
   @apply font-extrabold text-[max(48px,min(5vw,56px))] leading-none -tracking-wider relative p-6;

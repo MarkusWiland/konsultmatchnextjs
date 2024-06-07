@@ -80,15 +80,17 @@ export default async function Header() {
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </DialogComp>
-                <div>
-                  <ThemeToggle />
-                </div>
               </div>
             </>
           ) : (
-            <LoginButton>
-              <Button>Logga in</Button>
-            </LoginButton>
+            <div>
+              <LoginButton>
+                <Button>Logga in</Button>
+              </LoginButton>
+              <div>
+                <ThemeToggle />
+              </div>
+            </div>
           )}
         </div>
       </div>
