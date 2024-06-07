@@ -19,6 +19,7 @@ import FormError from "@/components/form-error";
 import FormSuccess from "@/components/form-success";
 import { useState, useTransition } from "react";
 import { register } from "@/actions/register";
+import Link from "next/link";
 
 export function RegisterForm() {
   const [error, setError] = useState<string | undefined>("");
@@ -211,10 +212,15 @@ export function RegisterForm() {
           <FormError message={error} />
           <FormSuccess message={success} />
           <Button type="submit" disabled={isPending} className="w-full">
-            Logga in
+            Skapa konto
           </Button>
         </form>
       </Form>
+      <div>
+        <Button>
+          <Link href="/auth/login">Logga in</Link>
+        </Button>
+      </div>
     </CardWrapper>
   );
 }

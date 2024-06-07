@@ -19,6 +19,7 @@ import FormError from "@/components/form-error";
 import FormSuccess from "@/components/form-success";
 import { login } from "@/actions/login";
 import { useState, useTransition } from "react";
+import Link from "next/link";
 
 export function LoginForm() {
   const [error, setError] = useState<string | undefined>("");
@@ -98,6 +99,11 @@ export function LoginForm() {
           </Button>
         </form>
       </Form>
+      <div>
+        <Button>
+          <Link href="/auth/register">Register</Link>
+        </Button>
+      </div>
     </CardWrapper>
   );
 }

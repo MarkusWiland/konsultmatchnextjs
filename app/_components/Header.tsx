@@ -32,7 +32,7 @@ export default async function Header() {
         <nav>
           <NavigationMenuHeader />
         </nav>
-        <div>
+        <div className="flex gap-4 items-center">
           {user ? (
             <>
               <div className="flex gap-10 items-center">
@@ -87,12 +87,14 @@ export default async function Header() {
               <LoginButton>
                 <Button>Logga in</Button>
               </LoginButton>
-              <div>
-                <ThemeToggle />
-              </div>
+           
             </div>
           )}
+             <div>
+                <ThemeToggle />
+              </div>
         </div>
+        
       </div>
     </header>
   );
