@@ -67,7 +67,7 @@
 }
 .HeroHeader {
   @apply font-extrabold text-[max(48px,min(5vw,56px))] leading-none -tracking-wider relative p-6;
-  background: linear-gradient(180deg, #4a90e2, #7f9eb2);
+  background: linear-gradient(180deg, #007219, #ffffff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

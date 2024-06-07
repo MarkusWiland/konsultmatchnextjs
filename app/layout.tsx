@@ -22,22 +22,22 @@ export default async function RootLayout({
   const session = await auth();
   return (
     <SessionProvider session={session}>
-    <html lang="en" >
-      <body className={`${inter.className} relative  `}  >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          
-          disableTransitionOnChange
-        >
-         
-          <Header />
-          <main className=" container min-h-[calc(100vh_-_134px)] 2xl:mt-16 xl:mt-12">{children}</main>
-          <Footer />
-        </ThemeProvider>
-      </body>
-    </html>
+      <html lang="en">
+        <body className={`${inter.className} relative  `}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Header />
+            <main className=" container min-h-[calc(100vh_-_134px)] 2xl:mt-16 xl:mt-12">
+              {children}
+            </main>
+            {/*<Footer />  */}
+          </ThemeProvider>
+        </body>
+      </html>
     </SessionProvider>
   );
 }

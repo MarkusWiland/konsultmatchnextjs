@@ -74,7 +74,7 @@ export default function JobApplicationComp({
         onSelectCategory={setSelectedCategory}
         jobApplications={jobApplications}
       />
-      <div className="grid grid-cols-5 gap-4 mt-10 mb-6">
+      <div className="grid grid-cols-4 gap-4 mt-10 mb-6">
         {paginatedUppdrag.map((item) => {
           const slug = createSlug(item.title);
           return (
