@@ -15,7 +15,7 @@ export function CardWrapper({
   showSoical,
 }: CardWrapperProps) {
   return (
-    <Card>
+    <Card className="w-1/3">
         <CardHeader>
             {headerLabel}
         </CardHeader>

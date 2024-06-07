@@ -100,7 +100,7 @@ export function LoginForm() {
         </form>
       </Form>
       <div>
-        <Button>
+        <Button className="w-full mt-4">
           <Link href="/auth/register">Register</Link>
         </Button>
       </div>

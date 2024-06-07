@@ -217,7 +217,7 @@ export function RegisterForm() {
         </form>
       </Form>
       <div>
-        <Button>
+        <Button className="w-full mt-4">
           <Link href="/auth/login">Logga in</Link>
         </Button>
       </div>
